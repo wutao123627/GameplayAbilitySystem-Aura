@@ -5,6 +5,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Interaction/EnemyInterface.h"
+#include "Character/AuraCharacter.h"
+#include "AbilitySystemComponent.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
@@ -98,6 +100,7 @@ void AAuraPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(MoveAction,ETriggerEvent::Triggered,this,&AAuraPlayerController::Move);
 
 }
+
 
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 {

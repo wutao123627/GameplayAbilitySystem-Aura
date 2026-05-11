@@ -27,10 +27,10 @@ protected:
 	UPROPERTY(EditAnywhere,Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, Category = "AbilitySystem")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, Category = "AbilitySystem")
 	TObjectPtr<UAttributeSet> AttributeSet;
 
 };
