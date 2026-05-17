@@ -4,7 +4,9 @@
 #include "UI/WidgetController/OverlayWidgetController.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "UI/Widgets/AuraUserWidget.h"
 #include "GameplayEffectTypes.h"
+
 
 
 void UOverlayWidgetController::BroadcastInitialValues()
