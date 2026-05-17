@@ -7,31 +7,31 @@
 #include "GameplayTagContainer.h"
 #include "OverlayWidgetController.generated.h"
 
+USTRUCT()
+struct FUIWidgetRow : public FTableRowBase {
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FGameplayTag MessageTag = FGameplayTag();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FText Message = FText();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<class UAuraUserWidget> MessageWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UTexture2D* Image = nullptr;
+};
+
+struct FOnAttributeChangeData;
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangeSignature, float, NewHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangeSignature, float, NewMaxHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChangeSignature, float, NewMana);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaChangeSignature, float, NewMaxMana);
 
-struct FOnAttributeChangeData;
-class UAuraUserWidget;
-
-USTRUCT()
-struct FUIWidgetRow : public FTableRowBase {
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere,BlueprintReadOnly)
-	FGameplayTag MessageTag = FGameplayTag();
-
-	UPROPERTY(EditAnywhere,BlueprintReadOnly)
-	FText Message = FText();
-
-	UPROPERTY(EditAnywhere,BlueprintReadOnly)
-	TSubclassOf<UAuraUserWidget> MessageWidget;
-
-	UPROPERTY(EditAnywhere,BlueprintReadOnly)
-	UTexture2D* Image = nullptr;
-};
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidgetRow, Row);
 
 
 /**
@@ -57,6 +57,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
 	FOnMaxManaChangeSignature OnMaxManaChanged;
+
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Message")
+	FMessageWidgetRowSignature MessageWidgetRowDelegate;
 
 protected:
 	 
