@@ -55,7 +55,7 @@ struct FEffectProperties {
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet
 {
-	GENERATED_BODY()
+	GENERATED_BODY() 
 
 public:
 	UAuraAttributeSet();
