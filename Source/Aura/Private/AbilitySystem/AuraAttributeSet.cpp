@@ -6,9 +6,24 @@
 #include "GameplayEffectExtension.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "AuraGameplayTags.h"
 
 
 UAuraAttributeSet::UAuraAttributeSet() {
+	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
+
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Strength, GetStrengthAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Intelligence, GetIntelligenceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Resilience, GetResilienceAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Primary_Vigor, GetVigorAttribute);
+	TagsToAttributes.Add(GameplayTags.Attribute_Secondary_Armor, GetVigorAttribute);
+
+
+	//RandomFunctionPointer = RandomFunction;
+	//float F = RandomFunctionPointer(0,0.f,0);
+
+	//FunctionPointer = GetIntelligenceAttribute;
+	//FGameplayAttribute Attribute  = FunctionPointer();
 }
 
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
