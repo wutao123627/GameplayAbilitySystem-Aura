@@ -24,9 +24,9 @@ inline void UAuraInputComponent::BindAbilityActions(const UAuraInputConfig* Inpu
 {
 	check(InputConfig);
 	for (const FAuraInputAction& Action:InputConfig -> AbilityInputActions) {
-		if (Action.InputAction && Aciton.InputTag.IsValid()) {
-			if (PressFunc) {
-				BindAction(Action.InputAction, ETriggerEvent::Started, Object, PressFunc, Action.InputTag);
+		if (Action.InputAction && Action.InputTag.IsValid()) {
+			if (PressedFunc) {
+				BindAction(Action.InputAction, ETriggerEvent::Started, Object, PressedFunc, Action.InputTag);
 			}
 
 			if (ReleasedFunc) {
