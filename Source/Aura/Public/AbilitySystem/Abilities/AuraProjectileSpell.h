@@ -6,7 +6,7 @@
 #include "AbilitySystem/Abilities/AuraGameplayAbility.h"
 #include "AuraProjectileSpell.generated.h"
 
-
+class UGmaeplayEffect;
 class AAuraProjectile;
 /**
  * 
@@ -25,4 +25,7 @@ protected:
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	TSubclassOf<AAuraProjectile> ProjectileClass;
+
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageEffectClass;
 };
