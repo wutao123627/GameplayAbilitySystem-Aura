@@ -2,11 +2,24 @@
 
 
 #include "AbilitySystem/ExecCalc/ExecClac_Damage.h"
-#include "ExecClac_Damage.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAttributeSet.h"
+
+struct AuraDamageStatics {
+	DECLARE_ATTRIBUTE_CAPTUREDEF(Armor);
+	AuraDamageStatics() {
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UAuraAttributeSet,Armor,Target,false);
+	}
+};
+
+static const AuraDamageStatics& DamageStatics() {
+	static AuraDamageStatics DStatics;
+	return DStatics;
+}
 
 UExecClac_Damage::UExecClac_Damage()
 {
+	RelevantAttributesToCapture.Add(DamageStatics().ArmorDef);
 }
 
 void UExecClac_Damage::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
@@ -19,4 +32,19 @@ void UExecClac_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	const AActor* TargetAvatar = TargetASC ? TargetASC->GetAvatarActor() : nullptr;
 
 	const FGameplayEffectSpec& Spec = ExecutionParams.GetOwningSpec();
+
+	const FGameplayTagContainer* SourceTags = Spec.CapturedSourceTags.GetAggregatedTags();
+	const FGameplayTagContainer* TargetTags = Spec.CapturedTargetTags.GetAggregatedTags();
+	FAggregatorEvaluateParameters EvaluationParameters;
+	EvaluationParameters.SourceTags = SourceTags;
+	EvaluationParameters.TargetTags = TargetTags;
+
+	float Armor = 0.f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorDef, EvaluationParameters, Armor);
+	Armor = FMath::Max<float>(Armor, 0.f);
+	++Armor;
+
+	const FGameplayModifierEvaluatedData EValuatedData(DamageStatics().ArmorProperty,EGameplayModOp::Additive,Armor);
+	OutExecutionOutput.AddOutputModifier(EValuatedData);
+
 }
