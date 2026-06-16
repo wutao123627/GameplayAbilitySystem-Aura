@@ -71,7 +71,7 @@ FVector AAuraCharacterBase::GetCombatSocketLocation_Implementation(const FGamepl
 	if (MontageTag.MatchesTagExact(GameplayTags.Montage_Attack_LeftHand)) {
 		return GetMesh()->GetSocketLocation(LeftHandSocketName);
 	}
-	if (MontageTag.MatchesTagExact(GameplayTags.Montage_Attack_RightHand) && IsValid(Weapon)) {
+	if (MontageTag.MatchesTagExact(GameplayTags.Montage_Attack_RightHand)) {
 		return GetMesh()->GetSocketLocation(RightHandSocketName);
 	}
 	return FVector();
