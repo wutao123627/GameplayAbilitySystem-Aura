@@ -3,7 +3,7 @@
 
 #include "Interaction/CombatInterface.h"
 #include "Animation/AnimMontage.h"
-
+#include "NiagaraSystem.h"
 // Add default functionality here for any ICombatInterface functions that are not pure virtual.
 
 int32 ICombatInterface::GetPlayerLevel()
