@@ -6,6 +6,7 @@
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "UI/Widgets/AuraUserWidget.h"
 #include "GameplayEffectTypes.h"
+#include "AbilitySystem/Data/AbilityInfo.h"
 
 
 
