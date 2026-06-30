@@ -46,18 +46,34 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		}
 	);
 
-	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
-		[this](const FGameplayTagContainer& AssetTags){
-			for (const FGameplayTag& Tag : AssetTags) {
-				//for example,Say that Tag = Message.HealthPotion
-				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
-				if (Tag.MatchesTag(MessageTag)) {
-					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
-					MessageWidgetRowDelegate.Broadcast(*Row);
+	if (UAuraAbilitySystemComponent* AuraASC = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)) {
+		if (AuraASC->bStartupAbilitiesGiven)
+		{
+			OnInitilizeStartupAbilities(AuraASC);
+		}
+		else {
+			AuraASC->AbilitiesGivenDelegate.AddUObject(this, &UOverlayWidgetController::OnInitilizeStartupAbilities);
+		}
+
+		AuraASC->EffectAssetTags.AddLambda(
+			[this](const FGameplayTagContainer& AssetTags) {
+				for (const FGameplayTag& Tag : AssetTags) {
+					//for example,Say that Tag = Message.HealthPotion
+					FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+					if (Tag.MatchesTag(MessageTag)) {
+						const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+						MessageWidgetRowDelegate.Broadcast(*Row);
+					}
 				}
 			}
-		}
-	);
+		);
+	}
+}
+
+void UOverlayWidgetController::OnInitilizeStartupAbilities(UAuraAbilitySystemComponent* AuraAbilitySystemComponent)
+{
+	//TODO Get information about all given abilities,look up their Ability Info,and broadcast if to widgets.
+	if (!AuraAbilitySystemComponent->bStartupAbilitiesGiven) return;
 }
 
 
