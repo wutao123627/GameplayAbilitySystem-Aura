@@ -7,6 +7,8 @@
 #include "GameplayTagContainer.h"
 #include "AbilityInfo.generated.h"
 
+class UGameplayAbility;
+
 USTRUCT(BlueprintType)
 struct FAuraAbilityInfo {
 	GENERATED_BODY()
@@ -29,6 +31,11 @@ struct FAuraAbilityInfo {
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UMaterialInterface> BackgroundMaterial = nullptr;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	int32 LevelRequirement = 1;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UGameplayAbility> Ability;
 };
 
 /**
