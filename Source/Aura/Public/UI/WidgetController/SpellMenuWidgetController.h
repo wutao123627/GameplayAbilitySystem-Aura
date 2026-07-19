@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UI/WidgetController/AuraWidgetController.h"
 #include "GameplayTagContainer.h"
+#include "AuraGameplayTags.h"
 #include "SpellMenuWidgetController.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FSpellGlobeSelectedSignature, bool, bSpendPointButtonEnabled,bool, bEquipButtonEnabled);
@@ -33,6 +34,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SpellGlobeSelected(const FGameplayTag& AbilityTag);
+
+	UFUNCTION(BlueprintCallable)
+	void SpendPointButtonPressed();
 
 private:
 
