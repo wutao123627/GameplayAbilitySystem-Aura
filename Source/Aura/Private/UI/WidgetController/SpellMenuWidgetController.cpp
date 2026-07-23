@@ -134,7 +134,7 @@ void USpellMenuWidgetController::OnAbilityEquipped(const FGameplayTag& AbilityTa
 {
 	bWaitingForEquipSelection = false;
 
-	const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
+	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
 
 	FAuraAbilityInfo LastSlotInfo;
 	LastSlotInfo.StatusTag = GameplayTags.Abilities_Status_Unlocked;
